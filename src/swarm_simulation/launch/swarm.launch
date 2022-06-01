@@ -1,0 +1,36 @@
+<launch>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+
+    <arg name="world_name" value="$(find swarm_simulation)/worlds/warehouse.world" />
+
+    <arg name="paused" value="false" />
+    <arg name="use_sim_time" value="true" />
+    <arg name="gui" value="true" />
+    <arg name="recording" value="false" />
+    <arg name="debug" value="false" />
+
+  </include>
+
+  <!-- Load PID Values for bot's wheel joints -->
+
+  <rosparam file="$(find swarm_simulation)/config/joint_velocity.yaml" command="load" />
+
+
+<group ns="red_bot" />
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description" command="$(find xacro)/xacro '$(find swarm_simulation)/urdf/redbot.xacro'" />
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -x 1.044088 -y -0.472715 -z 0.1 -Y 1.570000 -model redbot -param robot_description" />
+<!-- </group> -->
+
+
+<!-- Controllers-->
+<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/redbot" args="--namespace=/redbot
+	joint_state_controller
+	front
+	rear
+	left
+	right
+  " />
+</launch>
