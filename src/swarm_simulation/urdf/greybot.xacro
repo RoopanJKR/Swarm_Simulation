@@ -12,7 +12,7 @@
         <!-- <xacro:box_inertia m = "0.80" x = "0.085" y = "-0.10" z = "0.05" /> -->
         
         <inertial>
-            <origin rpy="0 0 0" xyz="0.085 -0.10 0.05" />
+            <origin rpy="0 0 0" xyz="0 0 0" />
             <mass value="0.9" />
             <inertia ixx="0.000070003" ixy="0.0" ixz="0.0" iyy="0.000070003" iyz="0.0" izz="0.000040" />
             <!-- <inertia ixx="0" ixy="-0.0" ixz="-1e-06" iyy="0" iyz="0" izz="0" /> -->
@@ -45,7 +45,7 @@
     <xacro:rim_macro
     name="front"
     color="0 1 0"
-    xyz="0.087 -0.0395 0.0265"
+    xyz="0 0.0585 -.0735"
     rpy="1.570796326794896 0.05 0"/>
 
     <!-- Rear wheel link -->
@@ -53,7 +53,7 @@
     <xacro:rim_macro
     name="rear"
     color="0 1 0"
-    xyz="0.087 -0.1575 0.0265"
+    xyz="0 -0.0595 -.0735"
     rpy="1.570796326794896 0.05 3.14"/>
 
     <!-- Left wheel link -->
@@ -61,7 +61,7 @@
     <xacro:rim_macro
     name="left"
     color="0 1 0"
-    xyz="0.0278 -0.099 0.0265"
+    xyz="0.0585 0 -.0735"
     rpy="1.570796326794896 0.05 1.57"/>
 
     <!-- Right Wheel link  -->
@@ -69,8 +69,8 @@
     <xacro:rim_macro
     name="right"
     color="0 1 0"
-    xyz="0.146 -0.099 0.0265"
-    rpy="1.570796326794896 0.05 -1.57"/>
+    xyz="-0.0590 0 -.0735"
+    rpy="1.570796326794896 0.05 1.57"/>
 
     <!-- Should install sudo apt-get install ros-noetic-ros-control ros-noetic-ros-controllers -->
     <gazebo>

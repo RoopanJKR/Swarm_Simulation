@@ -3,7 +3,7 @@
 
     <arg name="world_name" value="$(find swarm_simulation)/worlds/warehouse.world" />
 
-    <arg name="paused" value="false" />
+    <arg name="paused" value="true" />
     <arg name="use_sim_time" value="true" />
     <arg name="gui" value="true" />
     <arg name="recording" value="false" />
@@ -11,26 +11,45 @@
 
   </include>
 
-  <!-- Load PID Values for bot's wheel joints -->
+  <group ns="redbot">
+    <param name="tf_prefix" value="redbot_tf" />
+    <include file="$(find swarm_simulation)/launch/bot.launch">
+      <arg name="init_pose" value="-x 1.141758 -y -0.384614 -z 0.131826 -Y 1.570000" />
+      <arg name="robot_name" value="redbot" />
+      <arg name="xacro_name" value="redbot" />
+    </include>
+  </group>
 
-  <rosparam file="$(find swarm_simulation)/config/joint_velocity.yaml" command="load" />
+  <group ns="greybot">
+    <param name="tf_prefix" value="greybot_tf" />
+    <include file="$(find swarm_simulation)/launch/bot.launch">
+      <arg name="init_pose" value="-x 1.141758 -y 0.393045 -z 0.131826 -Y 1.570000" />
+      <arg name="robot_name" value="greybot" />
+      <arg name="xacro_name" value="greybot" />
+    </include>
+  </group>
 
+  <group ns="greenbot">
+    <param name="tf_prefix" value="greenbot_tf" />
+    <include file="$(find swarm_simulation)/launch/bot.launch">
+      <arg name="init_pose" value="-x 0.960448 -y 0.980893 -z 0.131826 -Y 1.570000" />
+      <arg name="robot_name" value="greenbot" />
+      <arg name="xacro_name" value="greenbot" />
+    </include>
+  </group>
 
-<group ns="red_bot" />
-  <!-- Load the URDF into the ROS Parameter Server -->
-  <param name="robot_description" command="$(find xacro)/xacro '$(find swarm_simulation)/urdf/redbot.xacro'" />
+  <group ns="bluebot">
+    <param name="tf_prefix" value="greenbot_tf" />
+    <include file="$(find swarm_simulation)/launch/bot.launch">
+      <arg name="init_pose" value="-x 0.971374 -y -0.963554 -z 0.131826 -Y 1.570000" />
+      <arg name="robot_name" value="bluebot" />
+      <arg name="xacro_name" value="bluebot" />
+    </include>
+  </group>
 
-  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
-  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -x 1.044088 -y -0.472715 -z 0.1 -Y 1.570000 -model redbot -param robot_description" />
-<!-- </group> -->
-
-
-<!-- Controllers-->
-<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/redbot" args="--namespace=/redbot
-	joint_state_controller
-	front
-	rear
-	left
-	right
-  " />
 </launch>
+
+
+<!-- 0.883122 y 0.904034
+
+0.881553 y -1.065827 -->
